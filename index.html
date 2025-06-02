@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Interactivo Avanzado OrquestIA - Le Parche con IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7; 
+            color: #374151; 
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb; 
+        }
+        .report-container {
+            max-width: 900px; 
+            margin: 40px auto; 
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 16px; 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.09); 
+        }
+        h1, h2, h3, h4 {
+            color: #111827; 
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            font-weight: 700;
+        }
+        h1 {
+            font-size: 2.2em; 
+            border-bottom: 3px solid #1d4ed8; 
+            padding-bottom: 0.5em;
+            text-align: center;
+            color: #1d4ed8; 
+        }
+        h2 {
+            font-size: 1.75em; 
+            color: #1e40af; 
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #dbeafe; 
+            padding-bottom: 0.3em;
+        }
+        h2 .fas { 
+            margin-right: 12px;
+            font-size: 0.9em;
+            color: #2563eb; 
+        }
+        h3 {
+            font-size: 1.3em; 
+            color: #1f2937;
+            font-weight: 600;
+        }
+        h4 { 
+            font-size: 1.15em;
+            color: #1e3a8a; 
+            font-weight: 600;
+            margin-top: 1em;
+            margin-bottom: 0.4em;
+        }
+        p, li {
+            margin-bottom: 1em; 
+            text-align: justify;
+            color: #4b5563; 
+        }
+        ul {
+            list-style-position: inside;
+            padding-left: 5px; 
+        }
+        .impacto, .ejemplo, .fundamento-item { 
+            display: block; /* Corrección para superposición de texto */
+            margin-left: 25px;
+            padding: 10px 15px; 
+            border-left: 4px solid #60a5fa; 
+            background-color: #eff6ff; 
+            border-radius: 6px; 
+            margin-bottom: 1em;
+        }
+        .impacto strong, .fundamento-item strong { 
+            color: #1e40af;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate; 
+            border-spacing: 0;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            border-radius: 10px;
+            overflow: hidden; 
+        }
+        th, td {
+            border-bottom: 1px solid #e5e7eb; 
+            padding: 16px; 
+            text-align: left;
+            vertical-align: top;
+        }
+        td:not(:last-child), th:not(:last-child) {
+             border-right: 1px solid #e5e7eb; 
+        }
+        th {
+            background-color: #eef2ff; 
+            font-weight: 700; 
+            color: #1e3a8a; 
+            font-size: 1.05em;
+        }
+        tr:last-child td {
+            border-bottom: none; 
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .logo-container img {
+            max-width: 240px; 
+            height: auto;
+        }
+        .report-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+        .page-break { page-break-after: always; }
+        .title-page {
+            text-align: center;
+            padding: 70px 0; 
+            border-bottom: 1px solid #e0e0e0; 
+            margin-bottom: 40px;
+        }
+        .title-page h1 { font-size: 2.6em; border-bottom: none; }
+        .title-page p { font-size: 1.2em; color: #374151; text-align: center; margin-bottom: 0.5em; }
+
+        .interactive-section-container {
+            background-color: #f3f4f6; 
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 1px solid #e5e7eb;
+        }
+        .interactive-section-container h2 .fas { color: #7c3aed; } 
+        .interactive-section-container h3 .fas { color: #c026d3; } 
+
+
+        .gemini-feature-button {
+            background-color: #4f46e5; 
+            color: white;
+            padding: 14px 28px; 
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em; 
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: inline-flex; 
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .gemini-feature-button .fas {
+            margin-right: 10px;
+        }
+        .gemini-feature-button:hover {
+            background-color: #4338ca; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .gemini-feature-button:active {
+            transform: translateY(0px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .loading-spinner {
+            border: 5px solid #e5e7eb; 
+            border-top: 5px solid #4f46e5; 
+            border-radius: 50%;
+            width: 36px; 
+            height: 36px;
+            animation: spin 0.8s linear infinite; 
+            margin: 25px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .gemini-response-area {
+            margin-top: 25px;
+            padding: 25px; 
+            background-color: #ffffff; 
+            border: 1px solid #d1d5db; 
+            border-radius: 10px; 
+            white-space: pre-wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            line-height: 1.8; 
+        }
+        .gemini-response-area h4 { color: #4338ca; font-weight: 700; font-size:1.15em; margin-bottom:0.5em; }
+        
+        .chart-container { margin-top: 30px; padding: 25px; background-color: #f9fafb; border-radius: 12px; border: 1px solid #e5e7eb; }
+        .chart-container h2 .fas { color: #0ea5e9; } 
+        .bar-chart-title { text-align: center; font-size: 1.1em; font-weight: 600; margin-bottom: 25px; color: #0284c7; }
+        .bar-chart { display: flex; justify-content: space-around; align-items: flex-end; height: 220px; border-bottom: 2px solid #cbd5e1; padding-bottom:15px; }
+        .bar-wrapper { display: flex; flex-direction: column; align-items: center; width: 20%; }
+        .bar { 
+            width: 60%; 
+            background-image: linear-gradient(to top, #3b82f6, #60a5fa); 
+            text-align: center; 
+            color: white; 
+            font-size: 0.9em; 
+            font-weight: bold;
+            /* padding-top: 8px; REMOVED - value will be inside */
+            border-radius: 6px 6px 0 0; 
+            position: relative; /* Needed for the absolute positioned pseudo-element for value if used, or for direct children */
+            transition: height 0.7s ease-out, background-image 0.3s ease; 
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+            display: flex; /* To help center text if needed */
+            align-items: flex-start; /* Align text to top */
+            justify-content: center; /* Center text horizontally */
+            padding-top: 4px; /* Space for the value text inside */
+        }
+        .bar-value { 
+            /* Removed absolute positioning to place value inside the bar */
+            display: block;
+            font-size:0.8em; 
+            font-weight:600;
+            color: white; /* Ensure visibility on bar */
+            /* padding-top: 2px; /* Adjust as needed if text is at top of bar */
+        }
+        .bar-label { margin-top: 8px; color: #374151; font-size:0.85em; text-align:center; white-space:normal; line-height:1.2; }
+        .bar:hover { background-image: linear-gradient(to top, #2563eb, #3b82f6); }
+
+
+        .collapsible-header { cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
+        .collapsible-header:hover h3, .collapsible-header:hover h4 { color: #2563eb; } 
+        .collapsible-header h3, .collapsible-header h4 { margin-bottom: 0; font-size:1.2em; }  
+        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 10px; }
+        .collapsible-content.open { max-height: 1200px; transition: max-height 0.6s ease-in, padding 0.6s ease-in; padding: 15px 10px; }
+        .collapsible-icon { transition: transform 0.4s ease; font-size: 0.8em; color: #9ca3af; }
+        .collapsible-icon.open { transform: rotate(90deg); color: #2563eb; }
+
+
+        @media print {
+            body { background-color: #fff; margin: 0; padding: 0; font-size: 10pt; } 
+            .report-container { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; padding: 15mm; }
+            .report-footer, .interactive-section-container, .no-print, .chart-container { display: none; }
+            .page-break { page-break-after: always; }
+            h1 { font-size: 20pt; } h2 { font-size: 16pt; } h3 { font-size: 13pt; } h4 {font-size: 11pt;}
+            .collapsible-content { max-height: none !important; overflow: visible !important; padding: 10px 0 !important; } 
+            .collapsible-icon { display:none; } 
+            .collapsible-header { border-bottom: none; }
+            table { font-size: 9pt; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="title-page">
+            <div class="logo-container">
+                <img src="https://assets-global.website-files.com/655c5fd40174f948f0583899/655c63573c798b09a7157af7_OrquestIA%20Logotipo%20Principal%20(Horizontal%20Color).png" alt="Logo OrquestIA"
+                     onerror="this.onerror=null; this.src='https://placehold.co/240x80/E2E8F0/4A5568?text=Logo+OrquestIA';">
+            </div>
+            <h1>INFORME DE ANÁLISIS Y OPTIMIZACIÓN DE INTERACCIONES COMERCIALES</h1>
+            <p class="mt-6"><strong>Preparado para:</strong> Le Parche Food Park</p>
+            <p><strong>Preparado por:</strong> Nelson Aristizabal Amaya, OrquestIA</p>
+            <p><strong>Fecha:</strong> 1 de junio de 2025</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <section>
+            <h2><i class="fas fa-check-circle"></i>PRIMERA PARTE: ACIERTOS CLAVE</h2>
+            <p>Comportamientos efectivos observados en interacciones exitosas, que han sido incorporados y potenciados en la nueva Automatización de Ventas:</p>
+            
+            <div class="collapsible-header">
+                <h3>1. Escucha activa y personalización emocional</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <ul>
+                    <li><span class="ejemplo"><em>Ejemplo Anterior:</em> Ante dos cumpleañeros (mamá y esposo), se ofrecieron colores neutros para la decoración proactivamente.</span></li>
+                    <li><span class="impacto"><strong>Nueva Automatización de Ventas:</strong> Sistematiza la indagación sobre el motivo del evento y preferencias para ofrecer personalización desde el inicio. (Ver PARTE 2 y 3 del guion de automatización).</span></li>
+                </ul>
+            </div>
+
+            <div class="collapsible-header">
+                <h3>2. Cierre asumptivo y lenguaje de acción</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <ul>
+                    <li>Frases como “¿Te paso el QR o te la aparto ya?” demostraron ser efectivas.</li>
+                    <li><span class="impacto"><strong>Nueva Automatización de Ventas:</strong> Incorpora múltiples técnicas de cierre consultivo, con opciones y urgencia real, adaptadas al contexto. (Ver PARTE 4 del guion de automatización).</span></li>
+                </ul>
+            </div>
+
+            <div class="collapsible-header">
+                <h3>3. Uso de contenido visual (fotos y videos)</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <ul>
+                    <li>El envío de material visual de decoraciones generó respuestas emocionales positivas.</li>
+                     <li><span class="impacto"><strong>Nueva Automatización de Ventas:</strong> Propone el envío proactivo de contenido visual según el tipo de evento e interés del cliente, adaptándose al canal (ej. Instagram). (Ver PARTE 6 del guion de automatización).</span></li>
+                </ul>
+            </div>
+
+            <div class="collapsible-header">
+                <h3>4. Flexibilidad y resolución de objeciones</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <ul>
+                    <li>Permitir llevar torta, esconder regalos, etc., fue bien recibido.</li>
+                    <li><span class="impacto"><strong>Nueva Automatización de Ventas:</strong> Contempla las flexibilidades comunes y tiene estrategias predefinidas para manejar objeciones típicas (precio, número de personas). (Ver PARTE 3 y 4 del guion de automatización).</span></li>
+                </ul>
+            </div>
+
+            <div class="collapsible-header">
+                <h3>5. Agradecimientos y seguimiento post-venta</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <ul>
+                    <li>Frases como “Gracias por dejarnos ser parte de este momento” y el seguimiento posterior.</li>
+                    <li><span class="impacto"><strong>Nueva Automatización de Ventas:</strong> Sistematiza el seguimiento post-evento con enfoque en testimonios, referidos y reenganche. (Ver PARTE 5 del guion de automatización).</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <hr class="my-10 border-gray-300">
+
+        <section id="aspectos-mejora-original">
+            <h2><i class="fas fa-exclamation-triangle"></i>SEGUNDA PARTE: ASPECTOS DE MEJORA (ENFOQUE ANTERIOR)</h2>
+            <p>Los siguientes puntos débiles fueron identificados en el análisis de las interacciones previas y son la base para la creación de la nueva Automatización de Ventas:</p>
+            <div id="lista-aspectos-mejora">
+                <div class="collapsible-header">
+                    <h3>1. Desorden en la recolección de datos clave</h3>
+                    <i class="fas fa-chevron-right collapsible-icon"></i>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Se pedía información de forma desorganizada o tardía.</li>
+                        <li><span class="impacto"><strong>Impacto Negativo:</strong> Percepción poco profesional, dilata el cierre, posible pérdida de información.</span></li>
+                    </ul>
+                </div>
+
+                <div class="collapsible-header">
+                    <h3>2. Falta de claridad en condiciones y precios</h3>
+                    <i class="fas fa-chevron-right collapsible-icon"></i>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Clientes preguntaban repetidamente sobre inclusiones del precio o si el abono era consumible.</li>
+                        <li><span class="impacto"><strong>Impacto Negativo:</strong> Puede generar confusión, desconfianza y múltiples interacciones innecesarias.</span></li>
+                    </ul>
+                </div>
+                <div class="collapsible-header">
+                    <h3>3. Respuestas automáticas sin personalización o tono frío</h3>
+                    <i class="fas fa-chevron-right collapsible-icon"></i>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Respuestas frías o repetidas sin conexión al contexto emocional del cliente.</li>
+                        <li><span class="impacto"><strong>Impacto Negativo:</strong> Percepción de falta de atención, desconexión emocional.</span></li>
+                    </ul>
+                </div>
+
+                <div class="collapsible-header">
+                    <h3>4. Descoordinación logística o demoras en la información</h3>
+                    <i class="fas fa-chevron-right collapsible-icon"></i>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Demoras o falta de envío de comprobantes, fotos o cronogramas solicitados.</li>
+                        <li><span class="impacto"><strong>Impacto Negativo:</strong> Perjudica la experiencia, genera ansiedad y proyecta falta de profesionalismo.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-10 border-gray-300">
+        
+        <section class="chart-container">
+            <h2><i class="fas fa-chart-line"></i>Impacto Estimado de la Nueva Automatización en Métricas Clave (Ejemplo)</h2>
+            <p>Proyección visual del impacto positivo esperado al implementar la nueva Automatización de Ventas, en comparación con el enfoque anterior (datos hipotéticos para demostración).</p>
+            <div class="bar-chart-title">Comparativa de Rendimiento: Anterior vs. Nueva Automatización</div>
+            <div class="bar-chart">
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 60%; background-image: linear-gradient(to top, #fca5a5, #ef4444);" title="Anterior: 60%">
+                        <span class="bar-value">60%</span>
+                    </div>
+                     <div class="bar ml-1" style="height: 85%; background-image: linear-gradient(to top, #86efac, #22c55e);" title="Nueva Automatización: 85%">
+                        <span class="bar-value">85%</span>
+                    </div>
+                    <div class="bar-label mt-2 w-full">Tasa de Cierre</div>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 50%; background-image: linear-gradient(to top, #fca5a5, #ef4444);" title="Anterior: 50%">
+                         <span class="bar-value">50%</span>
+                    </div>
+                    <div class="bar ml-1" style="height: 90%; background-image: linear-gradient(to top, #86efac, #22c55e);" title="Nueva Automatización: 90%">
+                         <span class="bar-value">90%</span>
+                    </div>
+                    <div class="bar-label mt-2 w-full">Satisfacción Cliente</div>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 75%; background-image: linear-gradient(to top, #fca5a5, #ef4444);" title="Anterior: 75%">
+                         <span class="bar-value">75%</span>
+                    </div>
+                     <div class="bar ml-1" style="height: 30%; background-image: linear-gradient(to top, #86efac, #22c55e);" title="Nueva Automatización: 30% (Reducción)">
+                         <span class="bar-value">30%</span>
+                    </div>
+                    <div class="bar-label mt-2 w-full">Tiempo Resolución Consulta</div>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 40%; background-image: linear-gradient(to top, #fca5a5, #ef4444);" title="Anterior: 40%">
+                         <span class="bar-value">40%</span>
+                    </div>
+                    <div class="bar ml-1" style="height: 95%; background-image: linear-gradient(to top, #86efac, #22c55e);" title="Nueva Automatización: 95%">
+                         <span class="bar-value">95%</span>
+                    </div>
+                    <div class="bar-label mt-2 w-full">Recolección Datos Clave</div>
+                </div>
+            </div>
+             <p class="text-xs text-center mt-4 text-gray-500">Rojo: Enfoque Anterior, Verde: Proyección con Nueva Automatización. El tiempo de resolución busca reducirse.</p>
+        </section>
+
+        <hr class="my-10 border-gray-300">
+
+        <section id="fundamentos-nueva-automatizacion">
+            <h2><i class="fas fa-book-reader"></i>FUNDAMENTOS DE LA NUEVA AUTOMATIZACIÓN DE VENTAS</h2>
+            <p>Las mejoras implementadas en el guion y la personalidad de la nueva Automatización de Ventas no son arbitrarias. Se basan en un análisis cuidadoso de las <strong>interacciones que históricamente han resultado en ventas cerradas</strong> para Le Parche, así como en la aplicación de metodologías de venta consultiva y prospección probadas a nivel mundial. El objetivo es crear un sistema automatizado que no solo responda, sino que conecte, entienda y guíe eficazmente al cliente hacia una experiencia satisfactoria y una conversión exitosa.</p>
+            <p>A continuación, se detallan los dos pilares teóricos principales que, junto con el análisis de datos internos, han estructurado el nuevo enfoque de la Automatización de Ventas:</p>
+
+            <div class="collapsible-header">
+                <h3 class="flex items-center"><i class="fas fa-brain mr-3 text-blue-600"></i>SPIN Selling – Neil Rackham</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <div class="fundamento-item">
+                    <h4>Por qué es ideal para la Automatización de Ventas:</h4>
+                    <ul>
+                        <li><strong>Enfoque consultivo:</strong> Se centra en comprender profundamente las necesidades del cliente mediante preguntas estructuradas (Situación, Problema, Implicación, Necesidad de Solución - SPIN), lo que permite construir relaciones sólidas y ofrecer soluciones personalizadas. Esto es crucial para el estilo empático y atento del sistema automatizado.</li>
+                        <li><strong>Basado en investigación:</strong> Desarrollado a partir de un estudio exhaustivo de más de 35,000 llamadas de ventas, proporciona un marco probado y efectivo para ventas que requieren más que una simple transacción, como la planificación de un evento.</li>
+                        <li><strong>Aplicabilidad al estilo de la Automatización:</strong> El método SPIN se alinea perfectamente con el tono empático y personalizado que se busca para la automatización, permitiéndole guiar al cliente de manera natural hacia la solución que Le Parche ofrece, sin presionar y enfocándose en el valor.</li>
+                    </ul>
+                    <h4 class="mt-4">Importancia para Le Parche:</h4>
+                    <ul>
+                        <li><strong>Mejora la calidad de la interacción:</strong> Al hacer las preguntas correctas, la automatización puede descubrir las verdaderas motivaciones y preocupaciones del cliente, permitiendo a Le Parche ofrecer exactamente lo que el cliente valora.</li>
+                        <li><strong>Aumenta la tasa de conversión en ventas complejas:</strong> Para eventos como bodas, primeras comuniones o reservas grandes, donde la decisión no es impulsiva, el enfoque SPIN ayuda a construir el caso de valor de manera progresiva.</li>
+                        <li><strong>Diferenciación por servicio:</strong> En un mercado competitivo, un sistema automatizado que genuinamente entiende y asesora se convierte en un diferenciador clave, fomentando la lealtad.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapsible-header">
+                <h3 class="flex items-center"><i class="fas fa-bullseye mr-3 text-green-600"></i>Fanatical Prospecting – Jeb Blount</h3>
+                <i class="fas fa-chevron-right collapsible-icon"></i>
+            </div>
+            <div class="collapsible-content">
+                <div class="fundamento-item">
+                    <h4>Por qué es ideal para la Automatización de Ventas:</h4>
+                    <ul>
+                        <li><strong>Énfasis en la proactividad y el seguimiento:</strong> Destaca la importancia de mantener un flujo constante de oportunidades y de no dejar "enfriar" los prospectos. La automatización puede ser programada para realizar seguimientos automáticos y personalizados.</li>
+                        <li><strong>Multicanalidad:</strong> Promueve el uso de diversos canales de comunicación. Los principios de estar presente y ser consistente se aplican a cómo Le Parche gestiona sus diferentes puntos de contacto digital a través de la automatización.</li>
+                        <li><strong>Mentalidad de cierre y persistencia amable:</strong> Fomenta una actitud de buscar siempre la siguiente acción o el cierre, pero de una manera profesional y adaptada. La automatización está diseñada para guiar hacia una decisión, ofreciendo opciones y creando urgencia de forma sutil.</li>
+                    </ul>
+                    <h4 class="mt-4">Importancia para Le Parche:</h4>
+                    <ul>
+                        <li><strong>Optimización del embudo de ventas:</strong> Ayuda a asegurar que los prospectos que muestran interés inicial no se pierdan por falta de seguimiento o por no tener una llamada a la acción clara.</li>
+                        <li><strong>Incremento de oportunidades:</strong> Alienta a Le Parche a pensar en cómo la automatización puede, además de responder, iniciar conversaciones o recordar a clientes pasados sobre nuevas ofertas, manteniendo el "pipeline" activo.</li>
+                        <li><strong>Construcción de resiliencia comercial:</strong> Los principios de prospección fanática ayudan a mantener un esfuerzo constante independientemente de los altibajos, asegurando una base de clientes más estable y en crecimiento para Le Parche.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <hr class="my-10 border-gray-300">
+
+        <section class="interactive-section-container">
+            <h2><i class="fas fa-brain"></i>Exploración Estratégica con IA Gemini para la Nueva Automatización</h2>
+            <p>Utiliza la inteligencia artificial de Gemini para profundizar en la implementación y el impacto potencial del nuevo guion de Automatización de Ventas en Le Parche.</p>
+
+            <div class="mt-8">
+                <h3><i class="fas fa-tasks"></i>Impacto del Nuevo Guion de Automatización y Plan de Implementación</h3>
+                <p>Analiza cómo el guion de la Automatización de Ventas aborda los problemas previos y obtén un plan de acción para su implementación y prueba.</p>
+                <button id="analyzeImpactBtn" class="gemini-feature-button"><i class="fas fa-rocket"></i>Analizar Impacto y Plan de Acción con IA</button>
+                <div id="loadingSpinnerImpact" class="loading-spinner" style="display: none;"></div>
+                <div id="geminiImpactArea" class="gemini-response-area" style="display: none;">
+                    <h4>Análisis de Impacto y Plan de Acción por Gemini:</h4>
+                    <p id="geminiImpactText"></p>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-8 border-t border-gray-300">
+                <h3><i class="fas fa-chart-pie"></i>Análisis Comparativo y Proyección de Resultados</h3>
+                <p>Compara el enfoque anterior con las soluciones del guion de la Automatización de Ventas y explora los resultados tangibles esperados.</p>
+                <button id="compareApproachesBtn" class="gemini-feature-button"><i class="fas fa-balance-scale"></i>Comparar Enfoques y Proyectar Resultados con IA</button>
+                <div id="loadingSpinnerComparison" class="loading-spinner" style="display: none;"></div>
+                <div id="geminiComparisonArea" class="gemini-response-area" style="display: none;">
+                    <h4>Análisis Comparativo y Proyección por Gemini:</h4>
+                    <p id="geminiComparisonText"></p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="page-break"></div>
+        <hr class="my-10 border-gray-300">
+
+        <section>
+            <h2><i class="fas fa-tools"></i>TERCERA PARTE: CORRECCIONES (GUION DE AUTOMATIZACIÓN DE VENTAS)</h2>
+            <p><strong>El nuevo guion de Automatización de Ventas ha sido diseñado para abordar directamente los errores identificados, de las siguientes maneras:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Error Identificado (Enfoque Anterior)</th>
+                        <th>Solución con el Nuevo Guion de Automatización de Ventas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Petición tardía o desordenada de datos clave.</td><td>La Automatización sigue un flujo estructurado (SPIN) para solicitar los 5 datos esenciales de forma guiada y temprana. (Ver PARTE 2 del guion).</td></tr>
+                    <tr><td>Falta de claridad en precios, inclusiones y condiciones del abono.</td><td>La Automatización está entrenada para comunicar claramente qué incluye cada oferta, el propósito del abono y a preguntar proactivamente si hay dudas sobre costos adicionales (ej. decoración extra). (Ver PARTE 3 y 4 del guion).</td></tr>
+                    <tr><td>Tono frío o respuestas automáticas genéricas.</td><td>La identidad de la Automatización es cálida, cercana y usa lenguaje paisa emocional. Sus respuestas están diseñadas para conectar y adaptarse al contexto, evitando la genericidad. (Ver PARTE 1 y 6 del guion).</td></tr>
+                    <tr><td>Ausencia de cierres firmes o proactivos.</td><td>La Automatización utiliza técnicas de cierre asumptivo, alternativo y con urgencia real (cuando aplica), siempre buscando una acción concreta. (Ver PARTE 4 del guion).</td></tr>
+                    <tr><td>Falta de seguimiento post-visita o post-interés.</td><td>El guion de la Automatización incluye secuencias de seguimiento automatizables para después del evento (testimonios, referidos) y para reactivar el interés si no se concreta una reserva. (Ver PARTE 4 y 5 del guion).</td></tr>
+                    <tr><td>Descoordinación logística o demoras en la información.</td><td>Al centralizar la información y tener respuestas predefinidas para consultas comunes (ubicación, parqueadero, etc.), la Automatización reduce la necesidad de consultas internas que generan demoras. La solicitud de abono y confirmación es clara. (Ver PARTE 1, 2 y 4 del guion).</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr class="my-10 border-gray-300">
+
+        <section>
+            <h2><i class="fas fa-star"></i>CUARTA PARTE: VALOR AGREGADO DE LA NUEVA AUTOMATIZACIÓN DE VENTAS</h2>
+            <h3>Inteligencia emocional y comercial simulada</h3>
+            <p>La Automatización está diseñada para aplicar principios de SPIN Selling, entendiendo las necesidades del cliente antes de ofrecer soluciones, y evitando errores comunes como discutir precios prematuramente. Su tono paisa y empático busca crear una conexión genuina.</p>
+            <h3>Proceso de cierre optimizado</h3>
+            <p>Mediante cierres consultivos, opciones claras ("¿Prefieres X o Y?"), y la creación de un sentido de urgencia apropiado (ej. "Solo quedan X mesas para esa promoción"), la Automatización busca acelerar la toma de decisiones y mejorar la tasa de conversión.</p>
+            <h3>Seguimiento sistemático y proactivo</h3>
+            <p>La Automatización permite un seguimiento consistente post-interacción y post-evento, crucial para solicitar testimonios, incentivar referidos y fomentar la recompra, áreas a menudo descuidadas en procesos manuales.</p>
+            <h3>Experiencia de cliente coherente y de alta calidad</h3>
+            <p>La Automatización asegura que cada cliente reciba un nivel de atención estandarizado en términos de calidez, claridad de la información y eficiencia, independientemente del volumen de consultas o la disponibilidad del personal humano.</p>
+            <h3>Recolección de datos estructurada</h3>
+            <p>La insistencia amable pero sistemática en obtener los 5 datos clave desde el inicio asegura que Le Parche cuente con la información necesaria para una gestión eficiente de reservas y una mejor comprensión de su clientela.</p>
+        </section>
+
+        <div class="report-footer">
+            <p>OrquestIA - Agencia de Innovación Tecnológica Especializada en Inteligencia Artificial</p>
+            <p class="no-print">Para la numeración de páginas, utilice la función de encabezado/pie de página de su navegador al imprimir a PDF.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- Script para Secciones Colapsables ---
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.collapsible-icon');
+                
+                const parentContainer = header.closest('section'); 
+                if (parentContainer) {
+                    parentContainer.querySelectorAll('.collapsible-content.open').forEach(openContent => {
+                        if (openContent !== content) {
+                            openContent.classList.remove('open');
+                            openContent.style.maxHeight = null;
+                            const openIcon = openContent.previousElementSibling.querySelector('.collapsible-icon');
+                            if (openIcon) openIcon.classList.remove('open');
+                            openContent.previousElementSibling.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                }
+
+                content.classList.toggle('open');
+                if (icon) icon.classList.toggle('open'); 
+                
+                if (content.classList.contains('open')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    header.setAttribute('aria-expanded', 'true');
+                } else {
+                    content.style.maxHeight = null;
+                    header.setAttribute('aria-expanded', 'false');
+                }
+            });
+            header.setAttribute('aria-expanded', 'false');
+        });
+
+        // --- Script para Funciones de IA con Gemini ---
+        const analyzeImpactBtn = document.getElementById('analyzeImpactBtn');
+        const loadingSpinnerImpact = document.getElementById('loadingSpinnerImpact');
+        const geminiImpactArea = document.getElementById('geminiImpactArea');
+        const geminiImpactText = document.getElementById('geminiImpactText');
+        
+        const compareApproachesBtn = document.getElementById('compareApproachesBtn');
+        const loadingSpinnerComparison = document.getElementById('loadingSpinnerComparison');
+        const geminiComparisonArea = document.getElementById('geminiComparisonArea');
+        const geminiComparisonText = document.getElementById('geminiComparisonText');
+
+        const aspectosMejoraContainer = document.getElementById('lista-aspectos-mejora');
+        
+        const GEMINI_API_KEY = ""; 
+
+        async function callGeminiAPI(prompt, loadingSpinnerElement, resultTextElement, resultAreaElement) {
+            loadingSpinnerElement.style.display = 'block';
+            resultAreaElement.style.display = 'none';
+            resultTextElement.innerHTML = ''; 
+
+            try {
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    throw new Error(`Error en API: ${response.status} ${response.statusText} - ${errorBody}`);
+                }
+
+                const result = await response.json();
+                let textResponse = "No se pudo obtener una respuesta de la IA en este momento. Intenta de nuevo más tarde.";
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    textResponse = result.candidates[0].content.parts[0].text;
+                } else {
+                    console.warn("Respuesta inesperada de Gemini:", result);
+                }
+                
+                let formattedResponse = textResponse
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')     
+                    .replace(/^- (.*$)/gm, '<li>$1</li>'); 
+                
+                formattedResponse = formattedResponse.replace(/(<\/li>\s*<li>)/g, '</li><li>'); 
+                formattedResponse = formattedResponse.replace(/^(<li>.*<\/li>\s*)+/gm, (match) => `<ul>${match}</ul>`);
+                formattedResponse = formattedResponse.replace(/\n\n/g, '</p><p>') 
+                                       .replace(/\n/g, '<br>'); 
+                resultTextElement.innerHTML = `<p>${formattedResponse}</p>`; 
+                resultAreaElement.style.display = 'block';
+
+            } catch (error) {
+                console.error('Error llamando a Gemini API:', error);
+                resultTextElement.innerHTML = `<p class="text-red-600"><strong>Error:</strong> ${error.message}.<br>Por favor, revisa la consola para más detalles y asegúrate de que la API Key (si es necesaria para este modelo) esté configurada correctamente.</p>`;
+                resultAreaElement.style.display = 'block';
+            } finally {
+                loadingSpinnerElement.style.display = 'none';
+            }
+        }
+        
+        function getMejorasIdentificadasText() {
+            let texto = "Se han identificado los siguientes aspectos de mejora en el enfoque anterior de Le Parche:\n";
+            if (aspectosMejoraContainer) { 
+                const headers = aspectosMejoraContainer.querySelectorAll('.collapsible-header h3');
+                const contents = aspectosMejoraContainer.querySelectorAll('.collapsible-content ul');
+                headers.forEach((h3, index) => {
+                    texto += `\n${index + 1}. ${h3.textContent.trim()}:\n`;
+                    if (contents[index]) {
+                        const lis = contents[index].getElementsByTagName('li');
+                        for (let j = 0; j < lis.length; j++) {
+                            texto += `  - ${lis[j].textContent.trim().replace(/\s+/g, ' ')}\n`;
+                        }
+                    }
+                });
+            }
+            return texto;
+        }
+
+        if (analyzeImpactBtn) {
+            analyzeImpactBtn.addEventListener('click', async () => {
+                const anioActual = new Date().getFullYear();
+                const mesActual = new Date().toLocaleString('es-CO', { month: 'long' });
+                const diaActual = new Date().getDate();
+                const contextoPrompt = `Eres OrquestIA, un consultor experto en implementación de asistentes virtuales y optimización de procesos de venta para restaurantes como 'Le Parche' en Medellín, Colombia. Hoy es ${diaActual} de ${mesActual} de ${anioActual}.`;
+                
+                const mejorasAnteriores = getMejorasIdentificadasText();
+                
+                const prompt = `${contextoPrompt}
+Le Parche ha desarrollado un nuevo guion para su sistema de Automatización de Ventas con el objetivo de superar problemas previos en su servicio al cliente.
+Los problemas identificados en el enfoque anterior son:
+${mejorasAnteriores}
+
+Considerando que el nuevo guion de la Automatización de Ventas está diseñado para ser (según el informe):
+- Cercano, con un toque 'paisa', emocional y eficiente.
+- Utiliza SPIN Selling para entender necesidades.
+- Recolecta 5 datos clave de forma estructurada y temprana.
+- Comunica claramente precios e inclusiones.
+- Maneja objeciones con empatía (ej. Feel-Felt-Found).
+- Realiza cierres asumptivos y con opciones.
+- Sistematiza el seguimiento post-evento para testimonios y referidos.
+- Se adapta al canal (WhatsApp, Instagram, Web).
+
+Por favor:
+1.  Analiza brevemente cómo las características clave del nuevo guion de la Automatización de Ventas abordan directamente cada uno de los problemas listados del enfoque anterior. Sé específico.
+2.  Detalla un plan de acción conciso con los próximos 3-5 pasos clave que 'Le Parche' debería seguir para implementar y probar exitosamente la nueva Automatización. Incluye consideraciones sobre:
+    * Ajustes finales al guion de la Automatización.
+    * Entrenamiento del personal humano que podría interactuar o supervisar la Automatización.
+    * Configuración técnica básica (si se usara una plataforma de chatbot sencilla).
+    * Métricas clave para medir el éxito inicial de la Automatización en un periodo de prueba (ej. primeras 2-4 semanas).
+Presenta la respuesta de forma clara y organizada, usando listas o puntos.`;
+                
+                callGeminiAPI(prompt, loadingSpinnerImpact, geminiImpactText, geminiImpactArea);
+            });
+        }
+
+        if (compareApproachesBtn) {
+            compareApproachesBtn.addEventListener('click', async () => {
+                const anioActual = new Date().getFullYear();
+                const mesActual = new Date().toLocaleString('es-CO', { month: 'long' });
+                const diaActual = new Date().getDate();
+                const contextoPrompt = `Eres OrquestIA, un analista de estrategias de ventas y servicio al cliente para el sector restaurantero, con experiencia en la transición de métodos tradicionales a sistemas de Automatización de Ventas mejorados. Hoy es ${diaActual} de ${mesActual} de ${anioActual}.`;
+                
+                const mejorasAnteriores = getMejorasIdentificadasText();
+
+                const prompt = `${contextoPrompt}
+El restaurante 'Le Parche' busca mejorar su rendimiento comercial. Su enfoque anterior presentaba los siguientes problemas clave:
+${mejorasAnteriores}
+
+Han diseñado un nuevo guion para su sistema de Automatización de Ventas, cuyas características principales incluyen: un tono cercano y emocional, aplicación de SPIN Selling, recolección estructurada de datos, comunicación clara de condiciones, manejo empático de objeciones, cierres proactivos y seguimiento sistemático.
+
+Por favor:
+1.  Para CADA UNO de los problemas listados del enfoque anterior, describe brevemente cómo el antiguo enfoque contribuía al problema y luego cómo el nuevo guion de la Automatización de Ventas propone una solución superior.
+2.  Proyecta 2-3 resultados tangibles y específicos (ej. aumento porcentual en tasa de cierre, reducción en tiempo de consulta, mejora en calificación de satisfacción) que 'Le Parche' podría esperar al implementar exitosamente la nueva Automatización, justificando brevemente cada proyección.
+Presenta la respuesta de forma clara, idealmente usando una estructura comparativa o de puntos para cada problema.`;
+
+                callGeminiAPI(prompt, loadingSpinnerComparison, geminiComparisonText, geminiComparisonArea);
+            });
+        }
+    </script>
+</body>
+</html>
